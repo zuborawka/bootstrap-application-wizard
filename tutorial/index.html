@@ -16,7 +16,7 @@
 		<div class="wizard" id="wizard-tutorial">
 			<h1>Wizard Tutorial</h1>
 
-			<div>
+			<div class="wizard-card">
 				<h2>Card</h2>
 				<div>
 					<p>Input your first name.</p>
@@ -26,6 +26,20 @@
 				</div>
 			</div>
 
+			<div class="wizard-error">
+				<div class="alert alert-error">
+					<strong>There was a problem on communication.</strong>
+				</div>
+			</div>
+			
+			<div class="wizard-success">
+				<div class="alert alert-success">
+					Your data was posted <strong>successfully.</strong>
+				</div>
+
+				<a class="btn im-done">Done</a>
+			</div>
+
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="libs/chosen/chosen.jquery.js"></script>
@@ -33,7 +47,25 @@
 		<script src="libs/bootstrap-wizard/bootstrap-wizard.js"></script>
 <script type="text/javascript">
 $(function() {
-	var wizard = $("#wizard-tutorial").wizard({submitUrl: "ajax.php"});
+	var wizard = $("#wizard-tutorial").wizard();
+	
+	wizard.on("submit", function(wizard) {
+		$.ajax({
+			url: "ajax.php",
+			type: "POST",
+			data: wizard.serialize(),
+			success: function() {
+				wizard.submitSuccess();
+				wizard.hideButtons();
+				wizard.updateProgressBar(0);
+			},
+			error: function() {
+				wizard.submitError();
+				wizard.hideButtons();
+			}
+		});
+	});
+	
 	$("#open-wizard").click(function(){
 		wizard.show();
 	});
