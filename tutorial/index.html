@@ -12,7 +12,7 @@
 		</style>
 	</head>
 	<body>
-		<button class="btn btn-primary">Open wizard</button>
+		<button id="open-wizard" class="btn btn-primary">Open wizard</button>
 		<div class="wizard" id="wizard-tutorial">
 			<h1>Wizard Tutorial</h1>
 			<form action="post.php" method="post">
@@ -27,6 +27,10 @@
 		<script src="libs/bootstrap-wizard/bootstrap-wizard.js"></script>
 <script type="text/javascript">
 $(function() {
+	var wizard = $("#wizard-tutorial").wizard();
+	$("#open-wizard").click(function(){
+		wizard.show();
+	});
 });
 </script>
 	</body>
