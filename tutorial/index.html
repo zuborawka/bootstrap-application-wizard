@@ -15,11 +15,17 @@
 		<button id="open-wizard" class="btn btn-primary">Open wizard</button>
 		<div class="wizard" id="wizard-tutorial">
 			<h1>Wizard Tutorial</h1>
-			<form action="post.php" method="post">
-				<p>Input your first name.</p>
-				<input type="text" name="first-name" value="">
-				<button type="submit" name="submit">Submit</button>
-			</form>
+
+			<div>
+				<h2>Card</h2>
+				<div>
+					<p>Input your first name.</p>
+				</div>
+				<div>
+					<input type="text" name="first-name" value="">
+				</div>
+			</div>
+
 		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="libs/chosen/chosen.jquery.js"></script>
@@ -27,7 +33,7 @@
 		<script src="libs/bootstrap-wizard/bootstrap-wizard.js"></script>
 <script type="text/javascript">
 $(function() {
-	var wizard = $("#wizard-tutorial").wizard();
+	var wizard = $("#wizard-tutorial").wizard({submitUrl: "ajax.php"});
 	$("#open-wizard").click(function(){
 		wizard.show();
 	});
