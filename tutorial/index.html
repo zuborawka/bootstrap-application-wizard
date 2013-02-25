@@ -32,6 +32,12 @@
 				</div>
 			</div>
 			
+			<div class="wizard-failure">
+				<div class="alert alert-error">
+					<strong>There was a problem.</strong>
+				</div>
+			</div>
+
 			<div class="wizard-success">
 				<div class="alert alert-success">
 					Your data was posted <strong>successfully.</strong>
@@ -54,8 +60,13 @@ $(function() {
 			url: "ajax.php",
 			type: "POST",
 			data: wizard.serialize(),
-			success: function() {
-				wizard.submitSuccess();
+			success: function(data) {
+				var jsonObj = $.parseJSON(data);
+				if (jsonObj.result) {
+					wizard.submitSuccess();
+				} else {
+					wizard.submitFailure();
+				}
 				wizard.hideButtons();
 				wizard.updateProgressBar(0);
 			},
